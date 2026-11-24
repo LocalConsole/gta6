@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GTA VI — Презентация</title>
+<style>
+:root{--pink:#ff2e93;--orange:#ff8a3d;--cyan:#27e6ff;--purple:#7b2cff;--dark:#0b0614}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--dark);color:#fff;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif}
+#bg{position:fixed;inset:0;background:linear-gradient(180deg,#14052e 0%,#4a0e5c 45%,#ff4d7a 78%,#ffb36b 100%);background-size:100% 200%;animation:sky 18s ease-in-out infinite alternate;z-index:0}
+@keyframes sky{to{background-position:0 100%}}
+#sun{position:fixed;left:50%;bottom:-18vh;width:60vh;height:60vh;margin-left:-30vh;border-radius:50%;background:linear-gradient(180deg,#ffe27a,#ff4d7a);filter:blur(1px);opacity:.55;z-index:0;animation:sun 9s ease-in-out infinite alternate}
+@keyframes sun{to{transform:translateY(-6vh) scale(1.08)}}
+.palms{position:fixed;bottom:0;left:0;right:0;height:22vh;z-index:1;background:linear-gradient(0deg,#0b0614 20%,transparent);pointer-events:none}
+#fx{position:fixed;inset:0;z-index:1;pointer-events:none}
+#deck{position:relative;z-index:2;height:100%}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6vh 7vw;text-align:center;opacity:0;visibility:hidden;transform:scale(.96) translateY(30px);transition:opacity .7s,transform .7s,visibility .7s}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:scale(1.04) translateY(-30px)}
+h1{font-size:clamp(3rem,11vw,9rem);font-weight:900;letter-spacing:.02em;line-height:1;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200%;animation:shine 5s linear infinite;filter:drop-shadow(0 0 25px rgba(255,46,147,.6))}
+@keyframes shine{to{background-position:200% 0}}
+h2{font-size:clamp(1.8rem,5vw,3.6rem);font-weight:800;margin-bottom:3vh;text-shadow:0 0 22px rgba(255,46,147,.7)}
+h2 span{color:var(--cyan)}
+p.sub{font-size:clamp(1rem,2.2vw,1.6rem);opacity:.9;max-width:900px;line-height:1.5}
+.tag{display:inline-block;padding:.4em 1em;border:1px solid var(--cyan);color:var(--cyan);border-radius:99px;letter-spacing:.2em;font-size:.85rem;margin-bottom:2vh;box-shadow:0 0 14px rgba(39,230,255,.5)}
+/* staggered reveal */
+.slide .r{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s}
+.slide.active .r{opacity:1;transform:none}
+.slide.active .r:nth-child(1){transition-delay:.15s}.slide.active .r:nth-child(2){transition-delay:.3s}
+.slide.active .r:nth-child(3){transition-delay:.45s}.slide.active .r:nth-child(4){transition-delay:.6s}
+.slide.active .r:nth-child(5){transition-delay:.75s}.slide.active .r:nth-child(6){transition-delay:.9s}
+.grid{display:grid;gap:2vw;width:100%;max-width:1200px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:rgba(20,8,40,.62);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:2.4vh 1.6vw;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 0 35px rgba(255,46,147,.6)}
+.big{font-size:clamp(2.4rem,7vw,5.5rem);font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card small{display:block;opacity:.8;margin-top:.6em;font-size:clamp(.85rem,1.4vw,1.1rem);line-height:1.4}
+.card h3{font-size:clamp(1.1rem,2vw,1.6rem);margin-bottom:.4em;color:var(--orange)}
+/* photo blocks: put images in /images, gradient shows if file missing */
+.photo{width:100%;aspect-ratio:3/4;border-radius:20px;background-size:cover;background-position:center;border:2px solid rgba(255,255,255,.3);box-shadow:0 0 40px rgba(123,44,255,.6)}
+.photo.wide{aspect-ratio:16/9}
+.p-cover{background-image:url(images/cover.jpg),linear-gradient(135deg,#7b2cff,#ff2e93,#ff8a3d)}
+.p-jason{background-image:url(images/jason.jpg),linear-gradient(160deg,#0f4c81,#27e6ff)}
+.p-lucia{background-image:url(images/lucia.jpg),linear-gradient(160deg,#ff2e93,#ff8a3d)}
+.p-city{background-image:url(images/vicecity.jpg),linear-gradient(135deg,#ff8a3d,#ff2e93,#7b2cff)}
+.p-map{background-image:url(images/map.jpg),linear-gradient(135deg,#0d6e6e,#27e6ff,#7b2cff)}
+.p-cars{background-image:url(images/cars.jpg),linear-gradient(135deg,#ff2e93,#7b2cff)}
+.split{display:grid;grid-template-columns:1fr 1.3fr;gap:4vw;align-items:center;width:100%;max-width:1150px;text-align:left}
+.split .photo{max-height:62vh;width:auto;justify-self:center;height:62vh}
+.split.rev{grid-template-columns:1.3fr 1fr}
+ul.f{list-style:none;font-size:clamp(1rem,1.9vw,1.4rem);line-height:1.5}
+ul.f li{padding:.55em 0 .55em 1.6em;position:relative}
+ul.f li:before{content:"▶";position:absolute;left:0;color:var(--pink);font-size:.8em;top:.8em}
+/* timeline */
+.tl{display:flex;gap:2vw;width:100%;max-width:1200px;position:relative;margin-top:2vh}
+.tl:before{content:"";position:absolute;top:22px;left:5%;right:5%;height:4px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--orange));border-radius:4px;transform-origin:left;transform:scaleX(0);transition:transform 1.6s .4s}
+.slide.active .tl:before{transform:scaleX(1)}
+.tl .n{flex:1;position:relative;padding-top:56px}
+.tl .n:before{content:"";position:absolute;top:10px;left:50%;margin-left:-14px;width:28px;height:28px;border-radius:50%;background:var(--pink);box-shadow:0 0 20px var(--pink);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 38px 8px var(--pink)}}
+.tl b{display:block;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--cyan)}
+.tl span{font-size:clamp(.85rem,1.4vw,1.1rem);opacity:.9}
+/* price shine */
+.ultimate{border:2px solid var(--orange);box-shadow:0 0 40px rgba(255,138,61,.5);position:relative;overflow:hidden}
+.ultimate:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sweep 3.5s infinite}
+@keyframes sweep{to{left:140%}}
+.bar{height:16px;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--pink));width:0;transition:width 1.6s .5s;margin-top:1vh}
+.slide.active .bar{width:var(--w)}
+.row{width:100%;max-width:900px;text-align:left;margin:1.2vh 0;font-size:clamp(.95rem,1.7vw,1.3rem)}
+.row .bg{background:rgba(255,255,255,.14);border-radius:99px}
+/* nav */
+#progress{position:fixed;top:0;left:0;height:5px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--orange));z-index:10;transition:width .5s;box-shadow:0 0 14px var(--pink)}
+#hud{position:fixed;bottom:2.2vh;left:0;right:0;z-index:10;display:flex;justify-content:center;align-items:center;gap:1.4rem;font-size:.95rem}
+#hud button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:.25s}
+#hud button:hover{background:var(--pink);box-shadow:0 0 18px var(--pink)}
+#dots{display:flex;gap:7px}
+#dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:.3s}
+#dots i.on{background:var(--pink);transform:scale(1.5);box-shadow:0 0 10px var(--pink)}
+.hint{position:fixed;top:2vh;right:2vw;z-index:10;font-size:.8rem;opacity:.6}
+.glitch{animation:glitch 3.5s infinite}
+@keyframes glitch{0%,92%,100%{transform:none}94%{transform:translate(-4px,2px) skewX(6deg)}96%{transform:translate(4px,-2px) skewX(-6deg)}}
+.float{animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+.foot{font-size:.75rem;opacity:.55;margin-top:2vh}
+@media(max-width:800px){.g3,.g4,.g2{grid-template-columns:1fr}.split,.split.rev{grid-template-columns:1fr}.split .photo{height:30vh}.tl{flex-direction:column}.tl:before{display:none}.slide{overflow-y:auto;justify-content:flex-start;padding-top:8vh}}
+</style>
+</head>
+<body>
+<div id="bg"></div><div id="sun"></div><canvas id="fx"></canvas><div class="palms"></div>
+<div id="progress"></div><div class="hint">← → / пробел / свайп</div>
+
+<div id="deck">
+
+<!-- 1 -->
+<section class="slide">
+  <div class="r tag">ROCKSTAR GAMES ПРЕДСТАВЛЯЕТ</div>
+  <h1 class="r glitch">GTA VI</h1>
+  <p class="sub r">Grand Theft Auto VI — возвращение в Vice City. Первая номерная часть за 13 лет.</p>
+  <div class="r" style="width:min(640px,80vw);margin-top:3vh"><div class="photo wide p-cover"></div></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="r tag">ДАТА ВЫХОДА</div>
+  <h2 class="r">Игра уже <span>вышла!</span></h2>
+  <div class="r big float" style="font-size:clamp(3rem,10vw,8rem)">19.11.2026</div>
+  <div class="grid g3 r" style="margin-top:4vh">
+    <div class="card"><div class="big"><span data-count="13">0</span></div><small>лет с выхода GTA V (2013)</small></div>
+    <div class="card"><div class="big"><span data-count="3">0</span></div><small>платформы: PS5, PS5 Pro, Xbox Series X|S</small></div>
+    <div class="card"><div class="big">1<span style="font-size:.5em"> нед</span></div><small>предзагрузка шла за неделю до релиза — игра очень тяжёлая</small></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="r tag">ПУТЬ К РЕЛИЗУ</div>
+  <h2 class="r">Две <span>переноса</span> и долгожданный день</h2>
+  <div class="tl r">
+    <div class="n"><b>Дек 2023</b><span>Первый трейлер, анонс на 2025</span></div>
+    <div class="n"><b>Весна 2025</b><span>Перенос на 26 мая 2026</span></div>
+    <div class="n"><b>Ноя 2025</b><span>Второй перенос — на 19 ноября 2026</span></div>
+    <div class="n"><b>25 июня 2026</b><span>Старт предзаказов и объявление цены</span></div>
+    <div class="n"><b>19 ноя 2026</b><span>РЕЛИЗ 🎉</span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="r tag">ЦЕНЫ (США)</div>
+  <h2 class="r">Сколько <span>стоит</span> GTA 6</h2>
+  <div class="grid g2 r" style="max-width:900px">
+    <div class="card"><h3>Standard</h3><div class="big">$<span data-count="79.99" data-dec="2">0</span></div><small>На $10 дороже привычных $69.99 за новинку на консолях</small></div>
+    <div class="card ultimate"><h3>Ultimate</h3><div class="big">$<span data-count="99.99" data-dec="2">0</span></div><small>Обе версии: полная игра, бонус Vintage Vice City и 1 месяц GTA+</small></div>
+  </div>
+  <p class="foot r">Региональные цены отличаются. PC-версия пока без даты.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="r tag">СРАВНЕНИЕ ЦЕН</div>
+  <h2 class="r">Дорого или <span>нормально?</span></h2>
+  <div class="row r">Обычная AAA-новинка на консоли — $69.99<div class="bg"><div class="bar" style="--w:70%"></div></div></div>
+  <div class="row r">GTA 6 Standard — $79.99<div class="bg"><div class="bar" style="--w:80%"></div></div></div>
+  <div class="row r">GTA 6 Ultimate — $99.99<div class="bg"><div class="bar" style="--w:100%;background:linear-gradient(90deg,var(--orange),var(--pink))"></div></div></div>
+  <p class="sub r" style="margin-top:2vh">С поправкой на инфляцию $79.99 — примерно как GTA V стоила на старте в 2013.</p>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="split">
+    <div class="photo p-jason r"></div>
+    <div class="r"><div class="tag">ГЛАВНЫЙ ГЕРОЙ</div><h2 style="margin-bottom:1vh">Jason <span>Duval</span></h2>
+      <ul class="f"><li>Бывший военный — тёмное прошлое и спецоперации</li><li>Чинит дома, грабит магазины, любит спорт</li><li>Встреча с Лючией может стать лучшим — или худшим — в его жизни</li></ul></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="split rev">
+    <div class="r"><div class="tag">ПЕРВАЯ В СЕРИИ</div><h2 style="margin-bottom:1vh">Lucia <span>Caminos</span></h2>
+      <ul class="f"><li>Первая женщина-протагонист в основной серии GTA</li><li>Начало истории — выход из тюрьмы Vice City</li><li>Вместе с Джейсоном — криминальный дуэт «против всех»</li></ul></div>
+    <div class="photo p-lucia r"></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="r tag">ЛОКАЦИИ</div>
+  <h2 class="r">Штат <span>Leonida</span></h2>
+  <div class="split" style="max-width:1200px">
+    <div class="photo wide p-map r" style="height:auto;max-height:none"></div>
+    <div class="r"><ul class="f"><li><b>Vice City</b> — солнечный мегаполис в стиле Майами</li><li><b>Leonida Keys</b> — острова и пляжи</li><li><b>Grassrivers</b> — болота и погони на аэролодках</li><li><b>Port Gellhorn, Ambrosia, Kalaga Park</b> — и другие регионы</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="r tag">ТРЕЙЛЕРЫ</div>
+  <h2 class="r">Хронология <span>хайпа</span></h2>
+  <div class="grid g3 r">
+    <div class="card"><h3>Trailer 1</h3><div class="big" style="font-size:2.6rem">Дек 2023</div><small>Рекордные просмотры за сутки, первый взгляд на Vice City</small></div>
+    <div class="card"><h3>Trailer 2</h3><div class="big" style="font-size:2.6rem">Май 2025</div><small>Представлены Jason и Lucia, новые персонажи и сайт игры</small></div>
+    <div class="card"><h3>Launch Trailer</h3><div class="big" style="font-size:2.6rem">Окт 2026</div><small>90 секунд, прошлое Джейсона, захвачено на PS5</small></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="r tag">ТЕХНОЛОГИИ</div>
+  <h2 class="r">Что <span>под капотом</span></h2>
+  <div class="grid g4 r">
+    <div class="card"><h3>🎬</h3><small>Фотореалистичная графика, трейлеры записаны прямо на PS5</small></div>
+    <div class="card"><h3>🌴</h3><small>Живой мир: толпы, погода, соцсети в духе Vice City</small></div>
+    <div class="card"><h3>🚗</h3><small>Погони, ограбления банков, водный транспорт и болота</small></div>
+    <div class="card"><h3>💑</h3><small>История про отношения двух героев в центре сюжета</small></div>
+  </div>
+  <div class="r" style="width:min(560px,80vw);margin-top:3vh"><div class="photo wide p-cars"></div></div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="r tag">ЦИФРЫ</div>
+  <h2 class="r">GTA в <span>цифрах</span></h2>
+  <div class="grid g3 r">
+    <div class="card"><div class="big"><span data-count="200">0</span>M+</div><small>копий GTA V продано за всё время</small></div>
+    <div class="card"><div class="big"><span data-count="2002">0</span></div><small>год выхода GTA: Vice City — оригинала, к которому возвращается GTA 6</small></div>
+    <div class="card"><div class="big"><span data-count="2013">0</span></div><small>год выхода GTA V — прошлой номерной части</small></div>
+  </div>
+  <p class="foot r">GTA Online в GTA 6 на старте не анонсирован.</p>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <div class="r tag">ФИНАЛ</div>
+  <h1 class="r glitch">WELCOME<br>TO VICE CITY</h1>
+  <p class="sub r">Спасибо за внимание! Вопросы?</p>
+  <p class="foot r">Фан-презентация. Не связана с Rockstar Games / Take-Two. Данные на ноябрь 2026.</p>
+</section>
+
+</div>
+
+<div id="hud"><button id="pv">‹</button><div id="dots"></div><button id="nx">›</button></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),bar=document.getElementById('progress');
+let i=0;
+slides.forEach((_,k)=>{const d=document.createElement('i');d.onclick=()=>go(k);dots.appendChild(d)});
+function count(el){const t=+el.dataset.count,dec=+el.dataset.dec||0,s=performance.now(),D=1600;
+  (function f(n){const p=Math.min((n-s)/D,1),e=1-Math.pow(1-p,3);el.textContent=(t*e).toFixed(dec);if(p<1)requestAnimationFrame(f)})(s)}
+function go(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===n);s.classList.toggle('prev',k<n)});
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===n));
+  bar.style.width=((n+1)/slides.length*100)+'%';
+  slides[n].querySelectorAll('[data-count]').forEach(el=>{el.textContent='0';setTimeout(()=>count(el),400)});
+  i=n;location.hash=n+1;
+}
+document.getElementById('nx').onclick=()=>go(i+1);document.getElementById('pv').onclick=()=>go(i-1);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(i+1)}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1)});
+let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)go(i+(d<0?1:-1))});
+addEventListener('wheel',(()=>{let t=0;return e=>{const n=Date.now();if(n-t>900&&Math.abs(e.deltaY)>20){t=n;go(i+(e.deltaY>0?1:-1))}}})());
+// particles
+const c=document.getElementById('fx'),x=c.getContext('2d');let W,H,P=[];
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
+for(let k=0;k<70;k++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.5+.5,v:Math.random()*.6+.2,c:['#ff2e93','#27e6ff','#ffb36b'][k%3]});
+(function a(){x.clearRect(0,0,W,H);P.forEach(p=>{p.y-=p.v;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}
+  x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle=p.c;x.shadowColor=p.c;x.shadowBlur=12;x.fill()});requestAnimationFrame(a)})();
+go((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
